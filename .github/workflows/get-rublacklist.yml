@@ -18,17 +18,20 @@ jobs:
 
     - name: Process file
       run: |
+        pwd
         # Extracting data and converting it into a column
         cat rublacklist_raw | tr -d '[]",' | tr ' ' '\n' > rublacklist
+        ls -la
         rm -f rublacklist_raw
+        ls -la
 
     - name: Commit changes
       run: |
-        mv rublacklist master/data
-        git init
-        git config --local user.name "Get-Rublacklist Actions Bot"
-        git config --local user.email "actions@github.com"
-        git add .
-        git commit -m "Updated on $(date)"
-        git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-        git push origin master
+#        mv rublacklist master/data
+#        git init
+#        git config --local user.name "Get-Rublacklist Actions Bot"
+#        git config --local user.email "actions@github.com"
+#        git add .
+#        git commit -m "Updated on $(date)"
+#        git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+#        git push origin master
