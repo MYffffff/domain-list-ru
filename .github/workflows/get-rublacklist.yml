@@ -1,0 +1,29 @@
+name: Get Russian blacklist of domains 
+
+on:
+  schedule:
+    - cron: "30 4 * * *"
+
+jobs:
+  download-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download file
+      run: curl -o rublacklist_raw https://reestr.rublacklist.net/api/v3/domains
+
+    - name: Process file
+      run: |
+        # Extracting data and converting it into a column
+        cat rublacklist_raw | tr -d '[]",' | tr ' ' '\n' > rublacklist
+
+    - name: Commit changes
+      run: |
+        git config --local user.name "Get-Rublacklist Actions Bot"
+        git config --local user.email "actions@github.com"
+        git add data/rublacklist
+        git commit -m "Updated on $(date)"
+        git push
