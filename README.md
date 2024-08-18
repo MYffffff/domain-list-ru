@@ -2,76 +2,27 @@
 
 This project manages a list of domains, to be used as geosites for routing purpose in Project V.
 
-## Purpose of this project
-
-This project is not opinionated. In other words, it does NOT endorse, claim or imply that a domain should be blocked or proxied. It can be used to generate routing rules on demand.
-
 ## Download links
 
-- **dlc.dat**：[https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat](https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat)
-- **dlc.dat.sha256sum**：[https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat.sha256sum](https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat.sha256sum)
+- **geosite.dat**：[https://github.com/MYffffff/domain-list/releases/latest/download/geosite.dat](https://github.com/MYffffff/domain-list/releases/latest/download/geosite.dat)
+- **geosite.dat.sha256sum**：[https://github.com/MYffffff/domain-list/releases/latest/download/geosite.dat.sha256sum](https://github.com/MYffffff/domain-list/releases/latest/download/geosite.dat.sha256sum)
 
-## Usage example
+## Usage 
 
 Each file in the `data` directory can be used as a rule in this format: `geosite:filename`.
 
-```json
-"routing": {
-  "domainStrategy": "IPIfNonMatch",
-  "rules": [
-    {
-      "type": "field",
-      "outboundTag": "Reject",
-      "domain": [
-        "geosite:category-ads-all",
-        "geosite:category-porn"
-      ]
-    },
-    {
-      "type": "field",
-      "outboundTag": "Direct",
-      "domain": [
-        "domain:icloud.com",
-        "domain:icloud-content.com",
-        "domain:cdn-apple.com",
-        "geosite:cn",
-        "geosite:private"
-      ]
-    },
-    {
-      "type": "field",
-      "outboundTag": "Proxy-1",
-      "domain": [
-        "geosite:category-anticensorship",
-        "geosite:category-media",
-        "geosite:category-vpnservices"
-      ]
-    },
-    {
-      "type": "field",
-      "outboundTag": "Proxy-2",
-      "domain": [
-        "geosite:category-dev"
-      ]
-    },
-    {
-      "type": "field",
-      "outboundTag": "Proxy-3",
-      "domain": [
-        "geosite:geolocation-!cn"
-      ]
-    }
-  ]
-}
-```
+ToProxy:
+`geosite:rublacklist` Russian blocked by rkn domains
+`geosite:youtube` Youtube domains add separately
 
-## Generate `dlc.dat` manually
+
+## Generate `geosite.dat` manually
 
 - Install `golang` and `git`
-- Clone project code: `git clone https://github.com/v2fly/domain-list-community.git`
+- Clone project code: `git clone https://github.com/MYffffff/domain-list.git`
 - Navigate to project root directory: `cd domain-list-community`
 - Install project dependencies: `go mod download`
-- Generate `dlc.dat` (without `datapath` option means to use domain lists in `data` directory of current working directory):
+- Generate `geosite.dat` (without `datapath` option means to use domain lists in `data` directory of current working directory):
   - `go run ./`
   - `go run ./ --datapath=/path/to/your/custom/data/directory`
 
