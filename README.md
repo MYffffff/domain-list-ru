@@ -12,8 +12,8 @@ This project manages a list of domains, to be used as geosites for routing purpo
 Each file in the `data` directory can be used as a rule in this format: `geosite:filename`.
 
 ToProxy:
-`geosite:rublacklist` Russian blocked by rkn domains
-`geosite:youtube` Youtube domains add separately
+- `geosite:rublacklist` Russian blocked by rkn domains
+- `geosite:youtube` Youtube domains add separately
 
 
 ## Generate `geosite.dat` manually
