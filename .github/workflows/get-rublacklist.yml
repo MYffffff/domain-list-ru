@@ -22,6 +22,12 @@ jobs:
         cat rublacklist_raw | tr -d '[]",' | tr ' ' '\n' > rublacklist
         rm -f rublacklist_raw
 
+    - name: Files compare
+      run: |
+        ls -l data/rublacklist | awk '{print $5}'
+        ls -l rublacklist | awk '{print $5}'
+        
+        
     - name: Commit changes
       run: |
         mv rublacklist data
