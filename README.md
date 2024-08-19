@@ -14,6 +14,7 @@ Each file in the `data` directory can be used as a rule in this format: `geosite
 ToProxy:
 - `geosite:rublacklist` Russian blocked by rkn domains
 - `geosite:youtube` Youtube domains add separately
+- `geosite:openai` ChatGPT, OpenAi domains
 
 
 ## Generate `geosite.dat` manually
