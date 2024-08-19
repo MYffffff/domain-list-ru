@@ -32,8 +32,8 @@ jobs:
       run: |
         mv rublacklist data
         git init
-        git config --local user.name "Get-Rublacklist Actions Bot"
-        git config --local user.email "actions@github.com"
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@noreply.github.com"
         git add .
         git commit -m "Updated on $(date)"
         # git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
