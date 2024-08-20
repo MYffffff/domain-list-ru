@@ -24,8 +24,10 @@ jobs:
 
     - name: Files compare
       run: |
-        ls -l data/rublacklist | awk '{print $5}'
-        ls -l rublacklist | awk '{print $5}'
+          ls -l data/rublacklist | awk '{print $5}'
+          sha256sum data/rublacklist | awk '{print $1}'
+          ls -l rublacklist | awk '{print $5}'
+          sha256sum rublacklist | awk '{print $1}'
         
         
     - name: Commit changes
