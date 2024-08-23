@@ -19,9 +19,9 @@ jobs:
     - name: Files compare
       run: |
           if [ -f data/rublacklist ]; then
-            old_size=$(ls -l data/rublacklist | awk '{print $5}')
+            old_size=$(ls -lh data/rublacklist | awk '{print $5}')
             old_hash=$(sha256sum data/rublacklist | awk '{print $1}')
-            new_size=$(ls -l rublacklist | awk '{print $5}')
+            new_size=$(ls -lh rublacklist | awk '{print $5}')
             new_hash=$(sha256sum rublacklist | awk '{print $1}')
             echo $old_hash
             echo $new_hash
