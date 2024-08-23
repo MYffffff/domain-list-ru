@@ -18,19 +18,30 @@ jobs:
 
     - name: Files compare
       run: |
-          ls -l data/rublacklist | awk '{print $5}'
-          sha256sum data/rublacklist | awk '{print $1}'
-          ls -l rublacklist | awk '{print $5}'
-          sha256sum rublacklist | awk '{print $1}'
+          if [ -f data/rublacklist ]; then
+            old_size=$(ls -l data/rublacklist | awk '{print $5}')
+            old_hash=$(sha256sum data/rublacklist | awk '{print $1}')
+            new_size=$(ls -l rublacklist | awk '{print $5}')
+            new_hash=$(sha256sum rublacklist | awk '{print $1}')
+            echo $old_hash
+            echo $new_hash
+            if [ "$old_size" = "$new_size" ] && [ "$old_hash" = "$new_hash" ]; then
+              echo "No changes in the file. Exiting."
+              exit 0
+            else
+              echo "File has changed. Proceeding with commit."
+            fi
+          else
+            echo "No previous file found. Adding new file."
+          fi
 
         
     - name: Commit changes
       run: |
         mv rublacklist data
-        git init
+        # git init
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@noreply.github.com"
         git add .
         git commit -m "Updated on $(date)"
-        git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
         git push origin master
