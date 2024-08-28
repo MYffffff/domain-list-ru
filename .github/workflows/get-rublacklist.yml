@@ -14,7 +14,21 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Download file
-      run: wget -O rublacklist https://antifilter.download/list/domains.lst
+      run: wget -O rublacklist_raw https://antifilter.download/list/domains.lst
+
+    - name: Add smth
+      run: |
+          echo '# Added in request action'
+          echo 'include:instagram' >> rublacklist
+          echo 'include:twitter' >> rublacklist
+          echo 'rutracker.cc' >> rublacklist
+          echo 'adguard.com' >> rublacklist
+          echo 'vpngate.net' >> rublacklist
+          echo 'udemy.com' >> rublacklist
+          echo '' >> rublacklist
+          cat rublacklist_raw >> rublacklist
+          rm rublacklist_raw
+
 
     - name: Files compare
       run: |
@@ -26,8 +40,7 @@ jobs:
             echo $old_hash
             echo $new_hash
             if [ "$old_size" = "$new_size" ] && [ "$old_hash" = "$new_hash" ]; then
-              echo "No changes in the file. Exiting."
-              exit 0
+              echo "No changes in the file."
             else
               echo "File has changed. Proceeding with commit."
             fi
