@@ -18,13 +18,14 @@ jobs:
 
     - name: Add smth
       run: |
-          echo '# Added in request action'
+          echo '# Added in request action' >> rublacklist
           echo 'include:instagram' >> rublacklist
           echo 'include:twitter' >> rublacklist
           echo 'rutracker.cc' >> rublacklist
           echo 'adguard.com' >> rublacklist
           echo 'vpngate.net' >> rublacklist
           echo 'udemy.com' >> rublacklist
+          echo 'play.google.com' >> rublacklist
           echo '' >> rublacklist
           cat rublacklist_raw >> rublacklist
           rm rublacklist_raw
