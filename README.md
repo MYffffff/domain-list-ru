@@ -1,46 +1,6 @@
-# Domain list community
+# GEOSITE.DAT
 
-This project manages a list of domains, to be used as geosites for routing purpose in Project V.
-
-## Download links
-
-- **geosite.dat**：[https://github.com/MYffffff/domain-list/releases/latest/download/geosite.dat](https://github.com/MYffffff/domain-list/releases/latest/download/geosite.dat)
-- **geosite.dat.sha256sum**：[https://github.com/MYffffff/domain-list/releases/latest/download/geosite.dat.sha256sum](https://github.com/MYffffff/domain-list/releases/latest/download/geosite.dat.sha256sum)
-
-## Usage 
-
-Each file in the `data` directory can be used as a rule in this format: `geosite:filename`.
-
-ToProxy:
-- `geosite:rublacklist` Russian blocked by rkn domains
-- `geosite:youtube` Youtube domains add separately
-- `geosite:openai` ChatGPT, OpenAi domains
-
-
-## Generate `geosite.dat` manually
-
-- Install `golang` and `git`
-- Clone project code: `git clone https://github.com/MYffffff/domain-list.git`
-- Navigate to project root directory: `cd domain-list-community`
-- Install project dependencies: `go mod download`
-- Generate `geosite.dat` (without `datapath` option means to use domain lists in `data` directory of current working directory):
-  - `go run ./`
-  - `go run ./ --datapath=/path/to/your/custom/data/directory`
-
-Run `go run ./ --help` for more usage information.
-
-## Structure of data
-
-All data are under `data` directory. Each file in the directory represents a sub-list of domains, named by the file name. File content is in the following format.
-
-```
-# comments
-include:another-file
-domain:google.com @attr1 @attr2
-keyword:google
-regexp:www\.google\.com$
-full:www.google.com
-```
+Geosite.dat generator
 
 **Syntax:**
 
@@ -53,35 +13,3 @@ full:www.google.com
 * Regular expression begins with `regexp:`, followed by a valid regular expression (per Golang's standard).
 * Full domain begins with `full:`, followed by a complete and valid domain name.
 * Domains (including `domain`, `keyword`, `regexp` and `full`) may have one or more attributes. Each attribute begins with `@` and followed by the name of the attribute.
-
-## How it works
-
-The entire `data` directory will be built into an external `geosite` file for Project V. Each file in the directory represents a section in the generated file.
-
-To generate a section:
-
-1. Remove all the comments in the file.
-2. Replace `include:` lines with the actual content of the file.
-3. Omit all empty lines.
-4. Generate each `domain:` line into a [sub-domain routing rule](https://github.com/v2fly/v2ray-core/blob/master/app/router/config.proto#L21).
-5. Generate each `keyword:` line into a [plain domain routing rule](https://github.com/v2fly/v2ray-core/blob/master/app/router/config.proto#L17).
-6. Generate each `regexp:` line into a [regex domain routing rule](https://github.com/v2fly/v2ray-core/blob/master/app/router/config.proto#L19).
-7. Generate each `full:` line into a [full domain routing rule](https://github.com/v2fly/v2ray-core/blob/master/app/router/config.proto#L23).
-
-## How to organize domains
-
-### File name
-
-Theoretically any string can be used as the name, as long as it is a valid file name. In practice, we prefer names for determinic group of domains, such as the owner (usually a company name) of the domains, e.g., "google", "netflix". Names with unclear scope are generally unrecommended, such as "evil", or "local".
-
-### Attributes
-
-Attribute is useful for sub-group of domains, especially for filtering purpose. For example, the list of `google` domains may contains its main domains, as well as domains that serve ads. The ads domains may be marked by attribute `@ads`, and can be used as `geosite:google@ads` in V2Ray routing.
-
-## Contribution guideline
-
-* Fork this repo, make modifications to your own repo, file a PR.
-* Please begin with small size PRs, say modification in a single file.
-* A PR must be reviewed and approved by another member.
-* A script will verify your pull request to test whether your PR is correct or not every time you update the PR. Only the PR which passes the test will be merged. Please go to the Action label to get detailed information if you didn't pass it. We also provide the file which has been generated to make you test.
-* After a few successful PRs, you may apply for manager access to this repository.
